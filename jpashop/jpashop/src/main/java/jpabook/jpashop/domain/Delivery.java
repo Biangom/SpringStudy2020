@@ -16,7 +16,7 @@ public class Delivery {
     // 원 투 원에선 근심과 걱정ㅇ ㅣ이다.
     // order해서도 해줘야함
     // mappedBY 받은게 연관관계 노예
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery",fetch = FetchType.LAZY)
     private Order order;
 
     @Embedded

@@ -34,12 +34,18 @@ public class Category {
     private List<Item> items = new ArrayList<>();
 
     // 부모는 누구지 자식은 누구지
-    @ManyToOne // 부모니까 당연히 매니 투우ㅝㄴ
+    @ManyToOne(fetch = FetchType.LAZY) // 부모니까 당연히 매니 투우ㅝㄴ
     @JoinColumn(name = "parent_id")
     private Category parent;
     // 이름은 내꺼지 다른 Entity로 하는거와 같다
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
+
+    //==연관관계 메서드==//
+    public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.setParent(this);
+    }
 
 
 }
