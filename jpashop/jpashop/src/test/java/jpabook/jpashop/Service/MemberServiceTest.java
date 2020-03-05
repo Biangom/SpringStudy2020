@@ -75,6 +75,7 @@ public class MemberServiceTest {
            //when
            memberService.join(member1);
            memberService.join(member2); // 예외가 발생해야한다!
+           
 
 
 
