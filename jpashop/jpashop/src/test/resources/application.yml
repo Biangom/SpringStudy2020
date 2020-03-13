@@ -1,0 +1,24 @@
+spring:
+#  (1)실은 스프링부트가 아무 설정이 없으면
+#  메모리 모드로 돌아간다!
+
+#  datasource:
+##    이 url에다가 memory 모드로 띄우라고 하면됨
+#    url: jdbc:h2:mem:test
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-
+
+#    properties:
+#      hibernate:
+#        format_sql: true
+
+
+
+logging.level:
+  org.hibernate.SQL: debug

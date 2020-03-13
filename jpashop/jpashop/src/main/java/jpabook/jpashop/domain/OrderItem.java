@@ -1,17 +1,19 @@
 package jpabook.jpashop.domain;
 
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // (2) 이렇게하면 (1)을 줄일 수 있음
 public class OrderItem {
 
     @Id @GeneratedValue
-    private Long Id;
     @Column(name = "order_item_id")
     private Long id;
 
@@ -31,6 +33,45 @@ public class OrderItem {
 
     private int orderPrice; // 주문 가격
     private int count; // 주문수량
+
+    // (1)
+    // protected로 하면 제약을 걸 수 있음
+    // (JPA에서 protected면 쓰지 말라는 얘기)
+//    protected OrderItem() {
+//
+//    }
+
+    //==생성 메서드==//
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        // 얼마에 샀어
+        // price가 바뀔 수 있으니 price안쓴다.
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+
+        // 주문 상품 (OrderItem)을 만들면서
+        // 재고를 하나 까준다.
+        // 즉 생성할 때 재고를 까고 가준다.
+        item.removeStock(count);
+        return orderItem;
+    }
+
+
+    //==비즈니스 로직==//
+    public void cancel() {
+        // item의 재고를 늘리는게 목표
+        // 재고 수량을 원복한다.
+        getItem().addStock(count);
+    }
+
+    //==조회 로직==//
+    public int getTotalPrice() {
+        // 주문 가격과 수량을 곱하면 된다.
+        return getOrderPrice() * getCount();
+    }
+
 
 
 
