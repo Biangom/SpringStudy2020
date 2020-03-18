@@ -69,25 +69,28 @@ public class ItemController {
     }
 
     @PostMapping("items/{itemId}/edit")
-    public String updateItem(@PathVariable String itemId, @ModelAttribute("form") BookForm form) {
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) {
+//  (1)
+//        Book book = new Book();
+//        //필살기 씀
+//        book.setPrice(form.getPrice());
+//
+//        // 이게 생각보다 보안상 취약함.
+//        // getId를 누군가 바꿀 수 도 있으니.
+//        book.setId(form.getId());
+//        book.setStockQuantity(form.getStockQuantity());
+//        book.setName(form.getName());
+//        book.setAuthor(form.getAuthor());
+//        book.setIsbn(form.getIsbn());
+//
+//        // 뒷단, 압단에서든
+//        // USER가 Id에 대해서 권한이 있느닞 없는지를
+//        // 체크하는 로직이 있으면 좋음
+        // itemService.saveItem(book);
 
-        Book book = new Book();
-        //필살기 씀
-        book.setPrice(form.getPrice());
+        //(2)
+        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
 
-        // 이게 생각보다 보안상 취약함.
-        // getId를 누군가 바꿀 수 도 있으니.
-        book.setId(form.getId());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setName(form.getName());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
-
-        // 뒷단, 압단에서든
-        // USER가 Id에 대해서 권한이 있느닞 없는지를
-        // 체크하는 로직이 있으면 좋음
-
-        itemService.saveItem(book);
         return "redirect:/items";
     }
 }
