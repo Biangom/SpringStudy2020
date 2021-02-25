@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +13,15 @@ import java.util.List;
 public class Member {
 
     // Genereted value는 시퀀스값
+    // 자동으로 증가될거임.
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
 
+    @NotEmpty // name은 무조건 값이 있어야해.
     private String name;
 
-    // 어디에 내장될거라는걸 알림
+    // 어디에 내장될거라는걸 알림 ->
     @Embedded
     private Address address;
 

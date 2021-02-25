@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
@@ -108,7 +107,9 @@ public class Order  {
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
         // 이걸 통과하면 CANCLE 상태로 바꾸면 됨.
-        this.setStatus(OrderStatus.CANCLE);
+        System.out.println("****************** you here?");
+        this.setStatus(OrderStatus.CANCEL);
+        System.out.println(" 1!!!!!!!!!!!!" + this.getStatus());
         for (OrderItem orderItem: orderItems ) {
             // 현재 orderItem에는 cancel 메서드가 구현되어있지않음
             // 고객이 상품 2개 주문할 수 도 있음.

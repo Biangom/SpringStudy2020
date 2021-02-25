@@ -63,6 +63,7 @@ public class OrderItem {
     public void cancel() {
         // item의 재고를 늘리는게 목표
         // 재고 수량을 원복한다.
+        System.out.println("****************** you here? 2");
         getItem().addStock(count);
     }
 

@@ -131,6 +131,7 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+
     // (3) <- 젤 나은 방법
     // Query dsl 동적쿼리에 강력히 편함. 정적쿼리에도 편함
 

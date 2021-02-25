@@ -56,7 +56,6 @@ public class MemberService {
 ////    }
 
 
-
     // 회원 가입
     // 기본으로 false로 되어있음
     @Transactional
@@ -76,7 +75,7 @@ public class MemberService {
         // 따라서 DB에 member name의 Unique 제약조건을 달아놓는게 좋다!
         //EXCEPTION
         List<Member> findMembers = memberRepository.findByName(member.getName());
-        if(!findMembers.isEmpty()) {
+        if (!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
@@ -97,5 +96,25 @@ public class MemberService {
     }
 
 
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id); // 영속성 컨텍스트 반환해줌.
+        member.setName(name); // 영속상태의 member를 setName으로 바꿔주면. 얘가 종료되면 스프링이 AOP가 동작하면서
+        //// @Transaction 어노테이션에 의해 @Transactional 관련 AOP가 끝나는 시점에 Transscation 커밋이 되죠
 
+        /// 그떄 JPA가 영속성 컨텍스트를 fluh하고
+        /// 데이터베이스 트랜잭션 커밋하는 거임.
+
+
+        /// 김영한 선생님 스타일 : command와 쿼리를 철저히 분리한다라는 정책이 있음
+        /// 이렇게하면 업데이트 하면서 쿼리를 하게됨.
+        /// 업데이트는 변경성 메서드임. 얘에서 아이디를 가지고 조회하는 꼴이됨.
+        /// 커멘드랑 쿼리를 같이 하게 됨.
+
+        /// 그래서 id만 반환하거나 끝낸다.
+
+
+        // 이거 블로그 포스팅하기기
+    }
 }
+
